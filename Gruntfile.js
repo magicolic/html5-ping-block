@@ -5,14 +5,17 @@ module.exports = function(grunt) {
         
         jslint: { // https://npmjs.org/package/grunt-jslint / https://github.com/stephenmathieson/grunt-jslint
             app: {
-                src: ['src/**/*.js']
-            },
-            test: {
-                src: ['test/**/*.js'],
+                src: ['src/**/*.js'],
                 directives: {
-                    predef: ['test', 'ok']
+                    predef: ['console', 'alert', 'enchant', 'Game', 'Scene', 'Sprite', 'Surface']
                 }
             }
+            //test: {
+            //    src: ['test/**/*.js'],
+            //    directives: {
+            //        predef: ['test', 'ok']
+            //    }
+            //}
         },
         
         jshint: { // https://npmjs.org/package/grunt-contrib-jshint
