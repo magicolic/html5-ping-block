@@ -7,7 +7,9 @@ module.exports = function(grunt) {
             app: {
                 src: ['src/**/*.js'],
                 directives: {
-                    predef: ['console', 'alert', 'enchant', 'Game', 'Scene', 'Sprite', 'Surface']
+                    predef: ['console', 'alert', 
+                             'enchant', 'Game', 
+                             'BarSprite', 'BallSprite', 'GameScene']
                 }
             }
             //test: {
