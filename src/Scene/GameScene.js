@@ -2,6 +2,7 @@ var GameScene = enchant.Class.create(enchant.Scene, {
 
     bar: null,
     ball: null,
+    blocks: null,
 
     initialize: function () {
         'use strict';
@@ -10,6 +11,21 @@ var GameScene = enchant.Class.create(enchant.Scene, {
 
         this.bar = new BarSprite();
         this.ball = new BallSprite();
+        this.blocks = [
+            new BlockSprite(60, 120, this),
+            new BlockSprite(100, 100, this),
+            new BlockSprite(140, 120, this),
+            new BlockSprite(180, 100, this),
+            new BlockSprite(220, 120, this),
+            new BlockSprite(260, 100, this),
+            new BlockSprite(300, 120, this),
+            new BlockSprite(340, 100, this),
+            new BlockSprite(380, 120, this),
+            new BlockSprite(420, 100, this),
+            new BlockSprite(460, 120, this),
+            new BlockSprite(500, 100, this),
+            new BlockSprite(540, 120, this)
+        ];
 
         this.addChild(this.bar);
         this.addChild(this.ball);
@@ -59,19 +75,52 @@ var GameScene = enchant.Class.create(enchant.Scene, {
         'use strict';
 
         var maxX = enchant.Core.instance.width - this.ball.width,
-            maxY = enchant.Core.instance.height - this.ball.height;
+            maxY = enchant.Core.instance.height - this.ball.height,
+            i = 0;
+
+        for (i = 0; i < this.blocks.length; i += 1) {
+            if (this.blocks[i].intersect(this.ball)) {
+                if (this.ball.x >= this.blocks[i].x + this.blocks[i].width - 1 ||
+                        this.ball.x <= this.blocks[i].x + 1) {
+                    if (this.ball.xDirection === 'left') {
+                        this.ball.tl.clear();
+                        this.moveTheBall2(this.ball.angle, 'right', this.ball.yDirection);
+                        return;
+                    }
+
+                    this.ball.tl.clear();
+                    this.moveTheBall2(this.ball.angle, 'left', this.ball.yDirection);
+                    return;
+                }
+
+                if (this.ball.yDirection === 'up') {
+                    this.ball.tl.clear();
+                    this.moveTheBall2(this.ball.angle, this.ball.xDirection, 'down');
+                    return;
+                }
+
+                this.ball.tl.clear();
+                this.moveTheBall2(this.ball.angle, this.ball.xDirection, 'up');
+                return;
+            }
+        }
 
         if (this.ball.y >= maxY) {
             alert('Game Over');
         } else if (this.ball.y <= 0) {
             this.ball.tl.clear();
             this.moveTheBall2(this.ball.angle, this.ball.xDirection, 'down');
-        } else if (this.ball.x <= 0) {
+            return;
+        }
+        if (this.ball.x <= 0) {
             this.ball.tl.clear();
             this.moveTheBall2(this.ball.angle, 'right', this.ball.yDirection);
-        } else if (this.ball.x >= maxX) {
+            return;
+        }
+        if (this.ball.x >= maxX) {
             this.ball.tl.clear();
             this.moveTheBall2(this.ball.angle, 'left', this.ball.yDirection);
+            return;
         }
 
         if (this.ball.intersect(this.bar)) {
@@ -79,25 +128,32 @@ var GameScene = enchant.Class.create(enchant.Scene, {
             if (this.bar.isMovingLeft) {
                 if (this.ball.angle === 0) {
                     this.moveTheBall2(45, 'left', 'up');
-                } else if (this.ball.angle === 45) {
+                    return;
+                }
+                if (this.ball.angle === 45) {
                     if (this.ball.xDirection === 'right') {
                         this.moveTheBall2(0, '', 'up');
-                    } else {
-                        this.moveTheBall2(45, 'left', 'up');
+                        return;
                     }
+                    this.moveTheBall2(45, 'left', 'up');
+                    return;
                 }
             } else if (this.bar.isMovingRight) {
                 if (this.ball.angle === 0) {
                     this.moveTheBall2(45, 'right', 'up');
-                } else if (this.ball.angle === 45) {
+                    return;
+                }
+                if (this.ball.angle === 45) {
                     if (this.ball.xDirection === 'left') {
                         this.moveTheBall2(0, '', 'up');
-                    } else {
-                        this.moveTheBall2(45, 'right', 'up');
+                        return;
                     }
+                    this.moveTheBall2(45, 'right', 'up');
+                    return;
                 }
             } else {
                 this.moveTheBall2(this.ball.angle, this.ball.xDirection, 'up');
+                return;
             }
         }
     },

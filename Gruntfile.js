@@ -9,7 +9,7 @@ module.exports = function(grunt) {
                 directives: {
                     predef: ['console', 'alert', 
                              'enchant', 'Game', 
-                             'BarSprite', 'BallSprite', 'GameScene']
+                             'BarSprite', 'BallSprite', 'BlockSprite', 'GameScene']
                 }
             }
             //test: {
