@@ -1,8 +1,9 @@
 var BallSprite = enchant.Class.create(enchant.Sprite, {
 
-    speedX: 5,
-    speedY: 5,
-    ballCollision: false,
+    speed: 5,
+    yDirection: 'down',
+    xDirection: '',
+    angle: 0,
 
     initialize: function () {
         'use strict';
@@ -12,9 +13,6 @@ var BallSprite = enchant.Class.create(enchant.Sprite, {
         this.image = enchant.Core.instance.assets['img/ball.png'];
         this.x = (enchant.Core.instance.width / 2) - (this.width / 2);
         this.y = (enchant.Core.instance.height / 2) - (this.height / 2);
-        this.speedX = 5;
-        this.speedY = 5;
-        this.ballCollision = false;
     }
 
 });

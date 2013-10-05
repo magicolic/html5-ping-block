@@ -1,5 +1,8 @@
 var BarSprite = enchant.Class.create(enchant.Sprite, {
 
+    isMovingLeft: false,
+    isMovingRight: false,
+
     initialize: function () {
         'use strict';
 
