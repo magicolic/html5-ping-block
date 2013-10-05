@@ -33,50 +33,36 @@ var GameScene = enchant.Class.create(enchant.Scene, {
         this.moveTheBall2(0, '', 'down');
     },
 
-    onleftbuttondown: function () {
-        'use strict';
-
-        var newX = this.bar.x - 10;
-
-        if (newX > 0) {
-            this.bar.x = newX;
-            this.bar.isMovingLeft = true;
-        } else {
-            this.bar.x = 0;
-            this.bar.isMovingLeft = false;
-        }
-    },
-
-    onleftbuttonup: function () {
-        'use strict';
-        this.bar.isMovingLeft = false;
-    },
-
-    onrightbuttondown: function () {
-        'use strict';
-
-        var newX = this.bar.x + 10;
-
-        if (newX + this.bar.width < enchant.Core.instance.width) {
-            this.bar.x = newX;
-            this.bar.isMovingRight = true;
-        } else {
-            this.bar.x = enchant.Core.instance.width - this.bar.width;
-            this.bar.isMovingRight = false;
-        }
-    },
-
-    onrightbuttonup: function () {
-        'use strict';
-        this.bar.isMovingRight = false;
-    },
-
     onenterframe: function () {
         'use strict';
 
         var maxX = enchant.Core.instance.width - this.ball.width,
             maxY = enchant.Core.instance.height - this.ball.height,
             i = 0;
+
+        if (enchant.Core.instance.input.left && !enchant.Core.instance.input.right) {
+            if (this.bar.x - 10 > 0) {
+                this.bar.x -= 10;
+                this.bar.isMovingLeft = true;
+            } else {
+                this.bar.x = 0;
+                this.bar.isMovingLeft = false;
+            }
+        } else {
+            this.bar.isMovingLeft = false;
+        }
+
+        if (enchant.Core.instance.input.right && !enchant.Core.instance.input.left) {
+            if (this.bar.x + this.bar.width + 10 < enchant.Core.instance.width) {
+                this.bar.x += 10;
+                this.bar.isMovingRight = true;
+            } else {
+                this.bar.x = enchant.Core.instance.width - this.bar.width;
+                this.bar.isMovingRight = false;
+            }
+        } else {
+            this.bar.isMovingRight = false;
+        }
 
         for (i = 0; i < this.blocks.length; i += 1) {
             if (this.blocks[i].intersect(this.ball)) {
