@@ -1,9 +1,8 @@
 var BallSprite = enchant.Class.create(enchant.Sprite, {
 
     speed: 5,
-    yDirection: 'down',
-    xDirection: '',
-    angle: 0,
+    xSpeed: 0,
+    ySpeed: 5,
 
     initialize: function () {
         'use strict';
