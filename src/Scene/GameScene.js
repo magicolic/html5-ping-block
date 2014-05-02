@@ -9,26 +9,31 @@ var GameScene = enchant.Class.create(enchant.Scene, {
 
         enchant.Scene.call(this);
 
+        this.backgroundColor = 'white';
+
         this.bar = new BarSprite();
         this.ball = new BallSprite();
         this.blocks = [
-            new BlockSprite(60, 120, this),
-            new BlockSprite(100, 100, this),
-            new BlockSprite(140, 120, this),
-            new BlockSprite(180, 100, this),
-            new BlockSprite(220, 120, this),
-            new BlockSprite(260, 100, this),
-            new BlockSprite(300, 120, this),
-            new BlockSprite(340, 100, this),
-            new BlockSprite(380, 120, this),
-            new BlockSprite(420, 100, this),
-            new BlockSprite(460, 120, this),
-            new BlockSprite(500, 100, this),
-            new BlockSprite(540, 120, this)
+            new BlockSprite(60, 120),
+            new BlockSprite(100, 100),
+            new BlockSprite(140, 120),
+            new BlockSprite(180, 100),
+            new BlockSprite(220, 120),
+            new BlockSprite(260, 100),
+            new BlockSprite(300, 120),
+            new BlockSprite(340, 100),
+            new BlockSprite(380, 120),
+            new BlockSprite(420, 100),
+            new BlockSprite(460, 120),
+            new BlockSprite(500, 100),
+            new BlockSprite(540, 120)
         ];
 
         this.addChild(this.bar);
         this.addChild(this.ball);
+        this.blocks.forEach(function (block) {
+            this.addChild(block);
+        }, this);
 
         this.addEventListener('leftbuttondown', function () {
             if (!this.bar.isMovingLeft) {
@@ -78,6 +83,11 @@ var GameScene = enchant.Class.create(enchant.Scene, {
                     this.ball.xSpeed *= -1;
                 }
             }
+
+            BallSprite.intersect(BlockSprite).forEach(function (collision) {
+                collision[1].hit(); // 0 is the ball, 1 is the block
+            });
+
             return;
         }
 

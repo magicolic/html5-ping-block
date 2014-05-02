@@ -8,7 +8,7 @@ var App = (function () {
         game.preload('img/plate.png', 'img/ball.png', 'img/block.png');
         game.onload = function () {
             var scene = new GameScene();
-            game.pushScene(scene);
+            game.replaceScene(scene);
         };
         game.start();
     }
