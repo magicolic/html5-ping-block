@@ -60,6 +60,13 @@ var GameScene = enchant.Class.create(enchant.Scene, {
         });
     },
 
+    onexit: function () {
+        'use strict';
+        this.childNodes.forEach(function (node) {
+            this.removeChild(node);
+        }, this);
+    },
+
     onenterframe: function () {
         'use strict';
 
@@ -110,7 +117,7 @@ var GameScene = enchant.Class.create(enchant.Scene, {
         }
 
         if (this.ball.y + this.ball.height >= 640) {
-            alert('Game Over');
+            enchant.Core.instance.replaceScene(new GameOverScene());
             return;
         }
         if (this.ball.y <= 0) {

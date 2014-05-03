@@ -8,8 +8,8 @@ module.exports = function(grunt) {
                 src: ['src/**/*.js'],
                 directives: {
                     predef: ['console', 'alert', 
-                             'enchant', 'Game', 
-                             'BarSprite', 'BallSprite', 'BlockSprite', 'GameScene']
+                             'enchant', 'Game', 'Label',
+                             'App', 'BarSprite', 'BallSprite', 'BlockSprite', 'GameScene', 'GameOverScene']
                 }
             }
             //test: {
