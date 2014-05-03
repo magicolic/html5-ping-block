@@ -3,6 +3,7 @@ var GameScene = enchant.Class.create(enchant.Scene, {
     bar: null,
     ball: null,
     blocks: null,
+    blockHit: 0,
 
     initialize: function () {
         'use strict';
@@ -92,8 +93,13 @@ var GameScene = enchant.Class.create(enchant.Scene, {
             }
 
             BallSprite.intersect(BlockSprite).forEach(function (collision) {
-                collision[1].hit(); // 0 is the ball, 1 is the block
-            });
+                collision[1].hit(this); // 0 is the ball, 1 is the block
+                this.blockHit += 1;
+            }, this);
+
+            if (this.blockHit === this.blocks.length) {
+                enchant.Core.instance.replaceScene(new WonScene());
+            }
 
             return;
         }
