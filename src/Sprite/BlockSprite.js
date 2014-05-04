@@ -5,7 +5,7 @@ var BlockSprite = enchant.Class.create(enchant.Sprite, {
 
         enchant.Sprite.call(this, 40, 20);
 
-        this.image = enchant.Core.instance.assets['img/block.png'];
+        this.image = enchant.Core.instance.assets['img/block-blue.png'];
         this.x = x;
         this.y = y;
     },
