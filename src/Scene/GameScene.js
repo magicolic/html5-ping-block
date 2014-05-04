@@ -10,8 +10,6 @@ var GameScene = enchant.Class.create(enchant.Scene, {
 
         enchant.Scene.call(this);
 
-        this.backgroundColor = 'white';
-
         this.bar = new BarSprite();
         this.ball = new BallSprite();
         this.blocks = [
@@ -59,12 +57,16 @@ var GameScene = enchant.Class.create(enchant.Scene, {
             this.bar.tl.clear();
             this.bar.isMovingRight = false;
         });
+
+        console.log(this.childNodes.length);
     },
 
     onexit: function () {
         'use strict';
-        this.childNodes.forEach(function (node) {
-            this.removeChild(node);
+        this.removeChild(this.ball);
+        this.removeChild(this.bar);
+        this.blocks.forEach(function (block) {
+            this.removeChild(block);
         }, this);
     },
 
