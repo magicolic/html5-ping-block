@@ -13,6 +13,7 @@ var BlockSprite = enchant.Class.create(enchant.Sprite, {
     hit: function () {
         'use strict';
         enchant.Core.instance.currentScene.removeChild(this);
+        enchant.Core.instance.assets['img/ball-hit.wav'].play();
     }
 
 });

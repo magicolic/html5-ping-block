@@ -57,8 +57,6 @@ var GameScene = enchant.Class.create(enchant.Scene, {
             this.bar.tl.clear();
             this.bar.isMovingRight = false;
         });
-
-        console.log(this.childNodes.length);
     },
 
     onexit: function () {
@@ -121,6 +119,8 @@ var GameScene = enchant.Class.create(enchant.Scene, {
                 this.ball.xSpeed = this.ball.speed;
             }
 
+            enchant.Core.instance.assets['img/ball-hit.wav'].play();
+
             return;
         }
 
@@ -131,16 +131,19 @@ var GameScene = enchant.Class.create(enchant.Scene, {
         if (this.ball.y <= 0) {
             this.ball.y = 1;
             this.ball.ySpeed *= -1;
+            enchant.Core.instance.assets['img/ball-hit.wav'].play();
             return;
         }
         if (this.ball.x + this.ball.width >= 640) {
             this.ball.x = 640 - this.ball.width - 1;
             this.ball.xSpeed *= -1;
+            enchant.Core.instance.assets['img/ball-hit.wav'].play();
             return;
         }
         if (this.ball.x <= 0) {
             this.ball.x = 1;
             this.ball.xSpeed *= -1;
+            enchant.Core.instance.assets['img/ball-hit.wav'].play();
             return;
         }
     }
