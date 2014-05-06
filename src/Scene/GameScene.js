@@ -5,28 +5,16 @@ var GameScene = enchant.Class.create(enchant.Scene, {
     blocks: null,
     blockHit: 0,
 
-    initialize: function () {
+    initialize: function (level) {
         'use strict';
 
         enchant.Scene.call(this);
 
         this.bar = new BarSprite();
         this.ball = new BallSprite();
-        this.blocks = [
-            new BlockSprite(60, 120),
-            new BlockSprite(100, 100),
-            new BlockSprite(140, 120),
-            new BlockSprite(180, 100),
-            new BlockSprite(220, 120),
-            new BlockSprite(260, 100),
-            new BlockSprite(300, 120),
-            new BlockSprite(340, 100),
-            new BlockSprite(380, 120),
-            new BlockSprite(420, 100),
-            new BlockSprite(460, 120),
-            new BlockSprite(500, 100),
-            new BlockSprite(540, 120)
-        ];
+        this.blocks = level.blocks.map(function (block) {
+            return new BlockSprite(block.x, block.y);
+        });
 
         this.addChild(this.bar);
         this.addChild(this.ball);
@@ -98,7 +86,7 @@ var GameScene = enchant.Class.create(enchant.Scene, {
             }, this);
 
             if (this.blockHit === this.blocks.length) {
-                enchant.Core.instance.replaceScene(new WonScene());
+                App.goToNextLevel();
             }
 
             return;
