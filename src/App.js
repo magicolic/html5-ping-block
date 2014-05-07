@@ -14,7 +14,7 @@ var App = (function () {
     }
 
     function restart() {
-        level = 2;
+        level = 0;
         game.replaceScene(new GameScene(Levels[level]));
     }
 
