@@ -4,6 +4,7 @@ var GameScene = enchant.Class.create(enchant.Scene, {
     ball: null,
     blocks: null,
     blockHit: 0,
+    life: null,
 
     initialize: function (level) {
         'use strict';
@@ -13,13 +14,18 @@ var GameScene = enchant.Class.create(enchant.Scene, {
         this.bar = new BarSprite();
         this.ball = new BallSprite();
         this.blocks = level.blocks.map(function (block) {
-            return new BlockSprite(block.x, block.y);
+            return new BlockSprite(block.x, block.y, block.life);
         });
 
         this.addChild(this.bar);
         this.addChild(this.ball);
         this.blocks.forEach(function (block) {
             this.addChild(block);
+        }, this);
+
+        this.life = 0;
+        this.blocks.forEach(function (block) {
+            this.life += block.life;
         }, this);
 
         this.addEventListener('leftbuttondown', function () {
@@ -85,7 +91,7 @@ var GameScene = enchant.Class.create(enchant.Scene, {
                 this.blockHit += 1;
             }, this);
 
-            if (this.blockHit === this.blocks.length) {
+            if (this.blockHit === this.life) {
                 App.goToNextLevel();
             }
 
