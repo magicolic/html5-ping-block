@@ -23,9 +23,9 @@ var App = (function () {
         game = new Game(640, 640);
         game.fps = 60;
         game.keybind(32, 'a'); // 32 is space key
-        game.preload('img/plate.png', 'img/ball.png', 'img/block-blue.png', 'img/block-red.png', 'img/block-yellow.png', 'img/ball-hit.wav');
+        game.preload('img/start-scene-background.png', 'img/plate.png', 'img/ball.png', 'img/block-blue.png', 'img/block-red.png', 'img/block-yellow.png', 'img/ball-hit.wav');
         game.onload = function () {
-            restart();
+            game.replaceScene(new StartScene());
         };
         game.start();
     }
