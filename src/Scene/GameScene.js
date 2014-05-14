@@ -3,6 +3,7 @@ var GameScene = enchant.Class.create(enchant.Scene, {
     bar: null,
     ball: null,
     blocks: null,
+    playerPointLabel: null,
     blockHit: 0,
     life: null,
 
@@ -16,9 +17,14 @@ var GameScene = enchant.Class.create(enchant.Scene, {
         this.blocks = level.blocks.map(function (block) {
             return new BlockSprite(block.x, block.y, block.life);
         });
+        this.playerPointLabel = new Label('point: ' + enchant.Core.instance.player.point);
+        this.playerPointLabel.x = 10;
+        this.playerPointLabel.y = 10;
+        this.playerPointLabel.font = '20px arial, sans-serif';
 
         this.addChild(this.bar);
         this.addChild(this.ball);
+        this.addChild(this.playerPointLabel);
         this.blocks.forEach(function (block) {
             this.addChild(block);
         }, this);
@@ -57,6 +63,7 @@ var GameScene = enchant.Class.create(enchant.Scene, {
         'use strict';
         this.removeChild(this.ball);
         this.removeChild(this.bar);
+        this.removeChild(this.playerPointLabel);
         this.blocks.forEach(function (block) {
             this.removeChild(block);
         }, this);
@@ -89,6 +96,8 @@ var GameScene = enchant.Class.create(enchant.Scene, {
             BallSprite.intersect(BlockSprite).forEach(function (collision) {
                 collision[1].hit(this); // 0 is the ball, 1 is the block
                 this.blockHit += 1;
+                enchant.Core.instance.player.point += 1;
+                this.playerPointLabel.text = 'point: ' + enchant.Core.instance.player.point;
             }, this);
 
             if (this.blockHit === this.life) {

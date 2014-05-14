@@ -15,6 +15,7 @@ var App = (function () {
 
     function restart() {
         level = 0;
+        game.player.reset();
         game.replaceScene(new GameScene(Levels[level]));
     }
 
@@ -24,6 +25,7 @@ var App = (function () {
         game.fps = 60;
         game.keybind(32, 'a'); // 32 is space key
         game.preload('img/start-scene-background.png', 'img/plate.png', 'img/ball.png', 'img/block-blue.png', 'img/block-red.png', 'img/block-yellow.png', 'img/ball-hit.wav');
+        game.player = new Player();
         game.onload = function () {
             game.replaceScene(new StartScene());
         };
